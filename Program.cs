@@ -1,13 +1,15 @@
-using Microsoft.OpenApi.Models; // Add this at the top
+using Microsoft.OpenApi.Models; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); // This now works with the using above
+builder.Services.AddSwaggerGen(); 
 
-// Add CORS
+builder.Services.AddHttpClient(); // Registers HttpClient with the DI container
+
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",

@@ -8,6 +8,9 @@
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/MyPortfolioAPI.pdb
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.OpenApi.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.csproj.AssemblyReference.cache
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.GeneratedMSBuildEditorConfig.editorconfig
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.AssemblyInfoInputs.cache
@@ -15,6 +18,7 @@
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.csproj.CoreCompileInputs.cache
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.MvcApplicationPartsAssemblyInfo.cs
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.MvcApplicationPartsAssemblyInfo.cache
+/Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.sourcelink.json
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/scopedcss/bundle/MyPortfolioAPI.styles.css
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/staticwebassets.build.json
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/staticwebassets.build.json.cache
@@ -26,6 +30,3 @@
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.pdb
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/MyPortfolioAPI.genruntimeconfig.cache
 /Users/mac/Documents/MyPortfolioAPI/obj/Debug/net9.0/ref/MyPortfolioAPI.dll
-/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
-/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
