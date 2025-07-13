@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using MyPortfolioAPI.Models;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace MyPortfolioAPI.Controllers
 {
@@ -12,13 +13,14 @@ namespace MyPortfolioAPI.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly HttpClient _httpClient;
+        private readonly ILogger<WeatherController> _logger;
 
-        public WeatherController(HttpClient httpClient)
+        public WeatherController(HttpClient httpClient, ILogger<WeatherController> logger)
         {
             _httpClient = httpClient;
+            _logger = logger;
         }
-
-        /// <summary>
+ /// <summary>
         /// Gets current weather and hourly temperature for a specified geographical location.
         /// </summary>
         /// <param name="latitude">The latitude of the location</param>
@@ -32,7 +34,6 @@ namespace MyPortfolioAPI.Controllers
             [FromQuery] double latitude,
             [FromQuery] double longitude)
         {
-            // Basic input validation
             if (latitude < -90 || latitude > 90)
             {
                 return BadRequest("Latitude must be between -90 and 90.");
@@ -45,43 +46,47 @@ namespace MyPortfolioAPI.Controllers
             try
             {
                 // Construct the request URL for Open-Meteo API
-                // Note: The API endpoint and parameters are based on the Open-Meteo documentation.
+                // Note: Open-Meteo API does not require an API key for basic usage (The API endpoint and parameters are based on the Open-Meteo documentation).
                 string requestUrl = $"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,is_day,weather_code,wind_speed_10m,wind_direction_10m&hourly=temperature_2m&timezone=auto";
                 HttpResponseMessage response = await _httpClient.GetAsync(requestUrl);
                 response.EnsureSuccessStatusCode();
-                // Read the response content as a string
                 string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                // Deserialize the JSON string to your C# model (Root class in your models)
-                // PropertyNameCaseInsensitive = true is crucial for matching JSON snake_case to C# PascalCase
                 Root? weatherData = JsonSerializer.Deserialize<Root>(jsonResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 if (weatherData != null)
                 {
-                    // Construct a simplified DTO for the API response
-                    return Ok(new
+                    // Map to Weather ResponseDTO
+                    var weatherResponse = new WeatherResponseDto
                     {
-                        Location = new { Latitude = weatherData.Latitude, Longitude = weatherData.Longitude, Timezone = weatherData.Timezone },
-                        CurrentWeather = weatherData.Current != null ? new
+                        Location = new LocationDto
+                        {
+                            Latitude = weatherData.Latitude,
+                            Longitude = weatherData.Longitude,
+                            Timezone = weatherData.Timezone
+                        },
+                        CurrentWeather = weatherData.Current != null ? new CurrentWeatherDto
                         {
                             Time = weatherData.Current.Time,
-                            Temperature = $"{weatherData.Current.Temperature2m}{weatherData.CurrentUnits?.Temperature2m}", // Concatenate with unit
+                            Temperature = $"{weatherData.Current.Temperature2m}{weatherData.CurrentUnits?.Temperature2m}",
                             IsDay = weatherData.Current.IsDay == 1 ? "Day" : "Night",
-                            WeatherDescription = GetWeatherCodeDescription(weatherData.Current.WeatherCode), // Custom helper for description
+                            WeatherDescription = GetWeatherCodeDescription(weatherData.Current.WeatherCode),
                             WindSpeed = $"{weatherData.Current.WindSpeed10m}{weatherData.CurrentUnits?.WindSpeed10m}",
                             WindDirection = $"{weatherData.Current.WindDirection10m}°"
                         } : null,
-                        HourlyForecast = weatherData.Hourly?.Time?.Select((time, index) => new
+                        HourlyForecast = weatherData.Hourly?.Time?.Select((time, index) => new HourlyForecastItemDto
                         {
                             Time = time,
                             Temperature = weatherData.Hourly.Temperature2m?.ElementAtOrDefault(index) != null ?
                                           $"{weatherData.Hourly.Temperature2m.ElementAtOrDefault(index)}{weatherData.HourlyUnits?.Temperature2m}" : "N/A"
-                            // REMOVED HUMIDITY here as it's not in your model/current API response
-                        }).Take(24) // Take first 24 hours for simplicity if many are returned
-                    });
+                        }).Take(24).ToList() // .ToList() ensures it's a List<T> for the DTO
+                    };
+
+                    return Ok(weatherResponse); // Return the DTO
                 }
                 else
                 {
+                    _logger.LogError("Failed to deserialize weather data from Open-Meteo API. JSON response: {JsonResponse}", jsonResponse);
                     return StatusCode(500, "Failed to deserialize weather data from Open-Meteo API.");
                 }
             }
@@ -92,23 +97,21 @@ namespace MyPortfolioAPI.Controllers
                 {
                     errorMessage += $" (HTTP Status: {(int)httpEx.StatusCode.Value} {httpEx.StatusCode.Value})";
                 }
+                _logger.LogError(httpEx, "HttpRequestException occurred: {ErrorMessage}", errorMessage);
                 return StatusCode(500, errorMessage);
             }
             catch (JsonException jsonEx)
             {
+                _logger.LogError(jsonEx, "JsonException occurred while processing Open-Meteo API response.");
                 return StatusCode(500, $"Error processing Open-Meteo API response: {jsonEx.Message}");
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An unexpected error occurred in GetWeather method.");
                 return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
             }
         }
 
-        /// <summary>
-        /// Helper method to convert Open-Meteo weather codes to a human-readable description.
-        /// </summary>
-        /// <param name="code">The Open-Meteo weather code.</param>
-        /// <returns>A string description of the weather.</returns>
         private string GetWeatherCodeDescription(int code)
         {
             return code switch

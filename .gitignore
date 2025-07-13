@@ -1,0 +1,70 @@
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.com
+*.dll
+*.exe
+*.obj
+*.pdb
+*.user
+*.config
+*.log
+*.bak
+*.cache
+*.suo
+*.sln.docstates
+*.zip
+*.nupkg
+*.swp
+project.lock.json
+build.log
+bin/
+obj/
+
+# Package Management
+packages/
+*.nuget/
+!*.nuget/NuGet.Config
+.nuget/
+!src/Api/Api.csproj # Example: If you had a specific project you DID want to ignore certain things in
+node_modules/
+
+# Rider
+.idea/
+
+# DotNet tools
+.config/dotnet-tools.json
+
+# Local Host specific files
+*.userprefs
+appsettings.Development.json # Or other environment-specific appsettings you don't want committed
+appsettings.Production.json
+appsettings.Staging.json
+
+# Test Results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NPM
+npm-debug.log
+.npm/
+
+# macOS
+.DS_Store
+
+# Frontend build outputs (if any)
+# For example, if you later add a React/Angular/Vue build:
+# Frontend/dist/
+# Frontend/build/
+
+# Your Frontend's node_modules (if separate)
+# Frontend/node_modules/
+
+# Misc
+*.pid
+*.ps1
+*.sh
