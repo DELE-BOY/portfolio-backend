@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,9 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); 
-
-builder.Services.AddHttpClient(); // Registers HttpClient with the DI container
-builder.Logging.AddConsole(); //This adds console logging.
+builder.Services.AddHttpClient(); 
 // CORS
 builder.Services.AddCors(options =>
 {

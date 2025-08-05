@@ -7,6 +7,15 @@
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/MyPortfolioAPI.dll
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/MyPortfolioAPI.pdb
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.Configuration.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.Configuration.FileExtensions.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Json.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.Configuration.UserSecrets.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.FileProviders.Abstractions.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.FileProviders.Physical.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.FileSystemGlobbing.dll
+/Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Microsoft.OpenApi.dll
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/mac/Documents/MyPortfolioAPI/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
